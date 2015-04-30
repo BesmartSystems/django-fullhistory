@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.serializers.json import DjangoJSONEncoder
 import json
+import decimal
 
 import datetime
 
@@ -124,7 +125,7 @@ class FullHistory(models.Model):
         self._data = ENCODER.encode(val)
 
     def get_data(self):
-        return json.loads(self._data)
+        return json.loads(self._data, parse_float=decimal.Decimal)
 
     data = property(get_data, set_data)
 
